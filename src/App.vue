@@ -15,15 +15,10 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 import GameOfLife from './js/GameOfLife'
 
 export default {
   name: 'App',
-
-  components: {
-    HelloWorld
-  },
 
   data () {
     return {
@@ -40,14 +35,12 @@ export default {
     this.drawGameOfLife()
   },
 
-  watch: {
-    gameSize: 'reset'
-  },
-
   methods: {
     drawGameOfLife () {
       let canvas = document.getElementById('game-of-life')
       let ctx = canvas.getContext('2d')
+      ctx.fillStyle = '#FFFFFF'
+      ctx.fillRect(0, 0, this.canvasSize, this.canvasSize)
 
       let squareSize = this.canvasSize / this.gameOfLife.board.length
 
@@ -83,7 +76,7 @@ export default {
     randomCells () {
       for (let i = 0; i < this.gameOfLife.board.length; i++) {
         for (let j = 0; j < this.gameOfLife.board.length; j++) {
-          this.gameOfLife.setCell(i, j, Math.random() < 0.5)
+          this.gameOfLife.setCell(i, j, Math.random() < 0.35)
         }
       }
     }

@@ -158,7 +158,6 @@ describe('GameOfLife.js', () => {
     expect(gameOfLife.board[0][1]).to.equal(false)
   })
 
-
   it('should not resurrect a cell with more than three live neighbors', () => {
     let gameOfLife = new GameOfLife(3)
 
