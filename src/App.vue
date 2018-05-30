@@ -1,0 +1,103 @@
+<template>
+  <div id="app">
+    <div>
+      <canvas
+        id="game-of-life"
+        :width="canvasSize"
+        :height="canvasSize"
+        style="border: 1px solid black"
+      ></canvas>
+    </div>
+    <input type="text" v-model="gameSize">
+    <button @click="generation">Launch</button>
+    <button @click="reset">Reset</button>
+  </div>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld'
+import GameOfLife from './js/GameOfLife'
+
+export default {
+  name: 'App',
+
+  components: {
+    HelloWorld
+  },
+
+  data () {
+    return {
+      canvasSize: 500,
+      gameSize: 50,
+      gameOfLife: new GameOfLife(50),
+      timeout: null,
+      count: 0
+    }
+  },
+
+  mounted () {
+    this.randomCells()
+    this.drawGameOfLife()
+  },
+
+  watch: {
+    gameSize: 'reset'
+  },
+
+  methods: {
+    drawGameOfLife () {
+      let canvas = document.getElementById('game-of-life')
+      let ctx = canvas.getContext('2d')
+
+      let squareSize = this.canvasSize / this.gameOfLife.board.length
+
+      for (let i = 0; i < this.gameOfLife.board.length; i++) {
+        for (let j = 0; j < this.gameOfLife.board[i].length; j++) {
+          ctx.fillStyle = this.gameOfLife.board[i][j]
+            ? '#000000'
+            : '#FFFFFF'
+          ctx.fillRect(j * squareSize, i * squareSize, squareSize, squareSize)
+        }
+      }
+      ctx.fillStyle = '#FF0000'
+      ctx.font = '30px Arial'
+      ctx.fillText(this.count, 5, 35)
+    },
+
+    generation () {
+      this.count += 1
+      clearTimeout(this.timeout)
+      this.gameOfLife.generation()
+      this.drawGameOfLife()
+      this.timeout = setTimeout(this.generation, 300)
+    },
+
+    reset () {
+      this.count = 0
+      clearTimeout(this.timeout)
+      this.gameOfLife = new GameOfLife(this.gameSize)
+      this.randomCells()
+      this.drawGameOfLife()
+    },
+
+    randomCells () {
+      for (let i = 0; i < this.gameOfLife.board.length; i++) {
+        for (let j = 0; j < this.gameOfLife.board.length; j++) {
+          this.gameOfLife.setCell(i, j, Math.random() < 0.5)
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
