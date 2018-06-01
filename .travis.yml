@@ -17,3 +17,9 @@ deploy:
   local-dir: dist/
   on:
     branch: master
+  verbose: true
+
+notifications:
+  email:
+    on_failure: always
+
