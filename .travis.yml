@@ -3,7 +3,7 @@ language: node_js
 node_js:
   "8"
 
-script: npm run build
+after_success: npm run build
 
 cache:
   directories:
@@ -14,5 +14,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
   keep-history: true
+  local-dir: dist/
   on:
     branch: master
