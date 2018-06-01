@@ -9,8 +9,8 @@
       ></canvas>
     </div>
     <input type="text" v-model="gameSize">
-    <button @click="generation">Launch</button>
-    <button @click="reset">Reset</button>
+    <button @click="generation" :disabled="disabled.launch">Launch</button>
+    <button @click="reset" :disabled="disabled.reset">Reset</button>
   </div>
 </template>
 
@@ -26,7 +26,11 @@ export default {
       gameSize: 50,
       gameOfLife: new GameOfLife(50),
       timeout: null,
-      count: 0
+      count: 0,
+      disabled: {
+        launch: false,
+        reset: true
+      }
     }
   },
 
@@ -58,14 +62,18 @@ export default {
     },
 
     generation () {
+      this.disabled.launch = true
+      this.disabled.reset = false
       this.count += 1
       clearTimeout(this.timeout)
       this.gameOfLife.generation()
       this.drawGameOfLife()
-      this.timeout = setTimeout(this.generation, 300)
+      this.timeout = setTimeout(this.generation, 100)
     },
 
     reset () {
+      this.disabled.launch = false
+      this.disabled.reset = true
       this.count = 0
       clearTimeout(this.timeout)
       this.gameOfLife = new GameOfLife(this.gameSize)
