@@ -8,7 +8,8 @@
         style="border: 1px solid black"
       ></canvas>
     </div>
-    <input type="text" v-model="gameSize">
+    <input type="text" v-model="gameSize" maxlength="3">
+    <input type="range" min="1" max="500" v-model="speed" class="slider" id="myRange">
     <button @click="generation" :disabled="disabled.launch">Launch</button>
     <button @click="reset" :disabled="disabled.reset">Reset</button>
   </div>
@@ -23,10 +24,11 @@ export default {
   data () {
     return {
       canvasSize: 500,
-      gameSize: 50,
-      gameOfLife: new GameOfLife(50),
+      gameSize: 150,
+      gameOfLife: new GameOfLife(150),
       timeout: null,
       count: 0,
+      speed: 500,
       disabled: {
         launch: false,
         reset: true
@@ -68,7 +70,7 @@ export default {
       clearTimeout(this.timeout)
       this.gameOfLife.generation()
       this.drawGameOfLife()
-      this.timeout = setTimeout(this.generation, 100)
+      this.timeout = setTimeout(this.generation, this.speed)
     },
 
     reset () {
