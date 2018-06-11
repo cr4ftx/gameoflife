@@ -55,12 +55,12 @@ export default {
 
       let squareSize = this.canvasSize / this.gameOfLife.board.length
 
+      ctx.fillStyle = '#000000'
       for (let i = 0; i < this.gameOfLife.board.length; i++) {
         for (let j = 0; j < this.gameOfLife.board[i].length; j++) {
-          ctx.fillStyle = this.gameOfLife.board[i][j]
-            ? '#000000'
-            : '#FFFFFF'
-          ctx.fillRect(j * squareSize, i * squareSize, squareSize, squareSize)
+          if (this.gameOfLife.board[i][j]) {
+            ctx.fillRect(j * squareSize, i * squareSize, squareSize, squareSize)
+          }
         }
       }
       ctx.fillStyle = '#FF0000'
@@ -88,6 +88,9 @@ export default {
     },
 
     randomCells () {
+      clearTimeout(this.timeout)
+      this.count = 0
+      this.gameOfLife = new GameOfLife(this.gameSize)
       for (let i = 0; i < this.gameOfLife.board.length; i++) {
         for (let j = 0; j < this.gameOfLife.board.length; j++) {
           this.gameOfLife.setCell(i, j, Math.random() < 0.35)
