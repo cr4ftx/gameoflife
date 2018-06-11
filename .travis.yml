@@ -12,6 +12,6 @@ before_install:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/ castel2017@perso.iiens.net:html/
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/ castel2017@perso.iiens.net:html/
   on:
     branch: master
