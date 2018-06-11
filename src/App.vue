@@ -5,13 +5,16 @@
         id="game-of-life"
         :width="canvasSize"
         :height="canvasSize"
-        style="border: 1px solid black"
+        style="outline: 1px solid black"
+        @click="clickCanvas"
       ></canvas>
     </div>
     <input type="text" v-model="gameSize" maxlength="3">
     <input type="range" min="1" max="500" v-model="speed" class="slider" id="myRange">
-    <button @click="generation" :disabled="disabled.launch">Launch</button>
-    <button @click="reset" :disabled="disabled.reset">Reset</button>
+    <button @click="generation">Launch</button>
+    <button @click="pause">Pause</button>
+    <button @click="clear">Clear</button>
+    <button @click="randomCells">Random cells</button>
   </div>
 </template>
 
@@ -28,20 +31,22 @@ export default {
       gameOfLife: new GameOfLife(150),
       timeout: null,
       count: 0,
-      speed: 500,
-      disabled: {
-        launch: false,
-        reset: true
-      }
+      speed: 500
     }
   },
 
   mounted () {
-    this.randomCells()
     this.drawGameOfLife()
   },
 
   methods: {
+    clickCanvas (event) {
+      let row = Math.trunc(event.layerY / (this.canvasSize / this.gameOfLife.board.length))
+      let col = Math.trunc(event.layerX / (this.canvasSize / this.gameOfLife.board.length))
+      this.gameOfLife.setCell(row, col, !this.gameOfLife.board[row][col])
+      this.drawGameOfLife()
+    },
+
     drawGameOfLife () {
       let canvas = document.getElementById('game-of-life')
       let ctx = canvas.getContext('2d')
@@ -64,22 +69,21 @@ export default {
     },
 
     generation () {
-      this.disabled.launch = true
-      this.disabled.reset = false
       this.count += 1
       clearTimeout(this.timeout)
       this.gameOfLife.generation()
       this.drawGameOfLife()
-      this.timeout = setTimeout(this.generation, this.speed)
+      this.timeout = setTimeout(this.generation, 500 - this.speed)
     },
 
-    reset () {
-      this.disabled.launch = false
-      this.disabled.reset = true
-      this.count = 0
+    pause () {
       clearTimeout(this.timeout)
+    },
+
+    clear () {
+      clearTimeout(this.timeout)
+      this.count = 0
       this.gameOfLife = new GameOfLife(this.gameSize)
-      this.randomCells()
       this.drawGameOfLife()
     },
 
@@ -89,6 +93,7 @@ export default {
           this.gameOfLife.setCell(i, j, Math.random() < 0.35)
         }
       }
+      this.drawGameOfLife()
     }
   }
 }
