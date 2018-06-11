@@ -2,7 +2,7 @@ language: node_js
 node_js: '8'
 after_success: npm run build
 addons:
-  ssh_known_hosts: castel2017@perso.iiens.net
+  ssh_known_hosts: 193.54.225.84
 before_install:
 - openssl aes-256-cbc -K $encrypted_c50741cce0f7_key -iv $encrypted_c50741cce0f7_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
@@ -12,6 +12,6 @@ before_install:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/ castel2017@perso.iiens.net:html/
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist/ castel2017@193.54.225.84:html/
   on:
     branch: master
