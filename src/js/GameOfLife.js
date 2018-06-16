@@ -17,7 +17,7 @@ export default function GameOfLife (n) {
 
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board[i].length; j++) {
-        let count = countLiveNeighbors(i, j, copy)
+        let count = this.countLiveNeighbors(i, j, copy)
         if (copy[i][j]) {
           if (count < 2 || count > 3) this.board[i][j] = false
         } else {
@@ -27,7 +27,7 @@ export default function GameOfLife (n) {
     }
   }
 
-  const countLiveNeighbors = (row, col, board) => {
+  this.countLiveNeighbors = (row, col, board) => {
     let count = 0
 
     if (row === 0 && col === 0) { // top left
