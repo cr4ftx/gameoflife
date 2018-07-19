@@ -17,7 +17,7 @@ export default function GameOfLife (n) {
 
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board[i].length; j++) {
-        let count = this.countLiveNeighbors(i, j, copy)
+        const count = this.countLiveNeighbors(i, j, copy)
         if (copy[i][j]) {
           if (count < 2 || count > 3) this.board[i][j] = false
         } else {
@@ -25,6 +25,16 @@ export default function GameOfLife (n) {
         }
       }
     }
+    /*
+    this.board = this.board.map((row, i) => {
+      return row.map((col, j) => {
+        const count = this.countLiveNeighbors(i, j, this.board)
+        return this.board[i][j]
+          ? !(count < 2 || count > 3)
+          : count === 3
+      })
+    })
+    */
   }
 
   this.countLiveNeighbors = (row, col, board) => {

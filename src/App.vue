@@ -1,28 +1,67 @@
 <template>
   <div id="app">
-    <div>
-      <canvas
-        id="game-of-life"
-        :width="canvasSize"
-        :height="canvasSize"
-        style="outline: 1px solid black"
-        @click="clickCanvas"
-      ></canvas>
-    </div>
-    <input type="text" v-model="gameSize" maxlength="3">
-    <input type="range" min="1" max="500" v-model="speed" class="slider" id="myRange">
-    <button @click="generation">Launch</button>
-    <button @click="pause">Pause</button>
-    <button @click="clear">Clear</button>
-    <button @click="randomCells">Random cells</button>
+    <v-app>
+      <v-container>
+        <game-of-life-vue
+          id="1"
+        ></game-of-life-vue>
+      </v-container>
+
+      <!--<div>-->
+        <!--<canvas-->
+          <!--id="game-of-life"-->
+          <!--:width="canvasSize"-->
+          <!--:height="canvasSize"-->
+          <!--style="outline: 1px solid black"-->
+          <!--@click="clickCanvas"-->
+        <!--&gt;</canvas>-->
+      <!--</div>-->
+      <!--<v-bottom-nav-->
+        <!--:value="true"-->
+        <!--absolute-->
+        <!--color="gray"-->
+        <!--app-->
+      <!--&gt;-->
+        <!--<v-btn-->
+          <!--color="teal"-->
+          <!--value="recent"-->
+        <!--&gt;-->
+          <!--<v-icon>skip_previous</v-icon>-->
+        <!--</v-btn>-->
+        <!--<v-btn-->
+          <!--color="teal"-->
+          <!--value="favorites"-->
+        <!--&gt;-->
+          <!--<v-icon>play_circle_outline</v-icon>-->
+        <!--</v-btn>-->
+        <!--<v-btn-->
+          <!--color="teal"-->
+          <!--value="nearby"-->
+        <!--&gt;-->
+          <!--<v-icon>skip_next</v-icon>-->
+        <!--</v-btn>-->
+      <!--</v-bottom-nav>-->
+      <!--<game-of-life-vue id="1"></game-of-life-vue>-->
+      <!--<input type="text" v-model="gameSize" maxlength="3">-->
+      <!--<input type="range" min="1" max="500" v-model="speed" class="slider" id="myRange">-->
+      <!--<button @click="generation">Launch</button>-->
+      <!--<button @click="pause">Pause</button>-->
+      <!--<button @click="clear">Clear</button>-->
+      <!--<button @click="randomCells">Random cells</button>-->
+    </v-app>
   </div>
 </template>
 
 <script>
+import GameOfLifeVue from './components/GameOfLife'
 import GameOfLife from './js/GameOfLife'
 
 export default {
   name: 'App',
+
+  components: {
+    GameOfLifeVue
+  },
 
   data () {
     return {
@@ -104,11 +143,7 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
