@@ -1,4 +1,4 @@
-import GameOfLife from '@/js/GameOfLife'
+import GameOfLife from '@/components/GameOfLife/GameOfLife'
 
 describe('GameOfLife.js', () => {
   it('should init a board of 4 rows of 4 cols', () => {
