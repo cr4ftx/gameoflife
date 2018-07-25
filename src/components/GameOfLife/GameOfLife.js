@@ -1,18 +1,20 @@
-export default function GameOfLife (n) {
-  this.board = []
-  for (let i = 0; i < n; i++) {
-    let row = []
-    for (let j = 0; j < n; j++) {
-      row.push(false)
+export class GameOfLife {
+  constructor (n) {
+    this.board = []
+    for (let i = 0; i < n; i++) {
+      let row = []
+      for (let j = 0; j < n; j++) {
+        row.push(false)
+      }
+      this.board.push(row)
     }
-    this.board.push(row)
   }
 
-  this.setCell = (row, col, value) => {
+  setCell (row, col, value) {
     this.board[row][col] = value
   }
 
-  this.generation = () => {
+  generation () {
     let copy = JSON.parse(JSON.stringify(this.board))
 
     for (let i = 0; i < this.board.length; i++) {
@@ -37,7 +39,7 @@ export default function GameOfLife (n) {
     */
   }
 
-  this.countLiveNeighbors = (row, col, board) => {
+  countLiveNeighbors (row, col, board) {
     let count = 0
 
     if (row === 0 && col === 0) { // top left

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import GameOfLife from './GameOfLife.js'
+import { GameOfLife } from './GameOfLife.js'
 
 export default {
   name: 'GameOfLife',
