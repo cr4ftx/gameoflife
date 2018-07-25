@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 500px; margin: auto;">
     <canvas
       :ref="ref"
       :width="canvasSize"
@@ -7,44 +7,33 @@
       style="outline: 1px solid black"
     ></canvas>
 
-    <v-layout
-      row
-      wrap
-    >
-      <v-flex xs6>
-        <v-slider
-          v-model="speed"
-          label="Speed"
-          min="1"
-          max="500"
-        ></v-slider>
-      </v-flex>
-    </v-layout>
-
-    <v-bottom-nav
-      :value="true"
-      absolute
-      color="gray"
-      app
-    >
-      <v-btn color="teal">
-        <v-icon>skip_previous</v-icon>
-      </v-btn>
-      <v-btn color="teal" @click="play" v-if="!running">
-        <v-icon>play_arrow</v-icon>
-      </v-btn>
-      <v-btn color="teal" @click="pause" v-else>
+    <v-toolbar>
+      <v-btn @click="pause" icon v-if="running">
         <v-icon>pause</v-icon>
       </v-btn>
-      <v-btn color="teal" @click="generation">
+      <v-btn @click="play" icon v-else>
+        <v-icon>play_arrow</v-icon>
+      </v-btn>
+      <v-btn @click="generation" icon>
         <v-icon>skip_next</v-icon>
       </v-btn>
-    </v-bottom-nav>
+      <v-btn @click="randomCells" icon>
+        <v-icon>replay</v-icon>
+      </v-btn>
+      <v-slider
+        v-model="speed"
+        min="1"
+        max="500"
+        hint="Speed"
+        persistent-hint
+      ></v-slider>
+    </v-toolbar>
   </div>
 </template>
 
 <script>
-import GameOfLife from '../js/GameOfLife'
+import GameOfLife from './GameOfLife.js'
+
 export default {
   name: 'GameOfLife',
 
@@ -61,7 +50,7 @@ export default {
     'game-size': {
       type: Number,
       required: false,
-      default: 150
+      default: 250
     }
   },
 
@@ -71,7 +60,8 @@ export default {
       timeout: null,
       count: 0,
       speed: 500,
-      running: false
+      running: false,
+      activeBtn: 0
     }
   },
 
@@ -127,7 +117,7 @@ export default {
     },
 
     randomCells () {
-      clearTimeout(this.timeout)
+      this.pause()
       this.count = 0
       this.gameOfLife = new GameOfLife(this.gameSize)
       for (let i = 0; i < this.gameOfLife.board.length; i++) {

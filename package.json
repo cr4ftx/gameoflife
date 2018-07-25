@@ -5,11 +5,11 @@
   "author": "Swann Castel <swann.castel@ensiie.fr>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "lint": "eslint --ext .js,.vue src test/unit",
+    "lint": "eslint --ext .js,.vue src test/unit --fix",
     "build": "node build/build.js"
   },
   "dependencies": {
