@@ -1,13 +1,8 @@
 export class GameOfLife {
   constructor (n) {
-    this.board = []
-    for (let i = 0; i < n; i++) {
-      let row = []
-      for (let j = 0; j < n; j++) {
-        row.push(false)
-      }
-      this.board.push(row)
-    }
+    this.board = new Array(n)
+      .fill(n)
+      .map(n => new Array(n).fill(false))
   }
 
   setCell (row, col, value) {
@@ -27,66 +22,56 @@ export class GameOfLife {
         }
       }
     }
-    /*
-    this.board = this.board.map((row, i) => {
-      return row.map((col, j) => {
-        const count = this.countLiveNeighbors(i, j, this.board)
-        return this.board[i][j]
-          ? !(count < 2 || count > 3)
-          : count === 3
-      })
-    })
-    */
   }
 
   countLiveNeighbors (row, col, board) {
     let count = 0
 
     if (row === 0 && col === 0) { // top left
-      if (board[row][col + 1]) count += 1
-      if (board[row + 1][col]) count += 1
       if (board[row + 1][col + 1]) count += 1
+      if (board[row + 1][col]) count += 1
+      if (board[row][col + 1]) count += 1
     } else if (row === 0 && col === board.length - 1) { // top right
-      if (board[row][col - 1]) count += 1
       if (board[row + 1][col - 1]) count += 1
       if (board[row + 1][col]) count += 1
+      if (board[row][col - 1]) count += 1
     } else if (row === board.length - 1 && col === 0) { // bottom left
-      if (board[row - 1][col]) count += 1
       if (board[row - 1][col + 1]) count += 1
+      if (board[row - 1][col]) count += 1
       if (board[row][col + 1]) count += 1
     } else if (row === board.length - 1 && col === board.length - 1) { // bottom right
       if (board[row - 1][col - 1]) count += 1
       if (board[row - 1][col]) count += 1
       if (board[row][col - 1]) count += 1
     } else if (row === 0) { // top
-      if (board[row][col - 1]) count += 1
+      if (board[row + 1][col + 1]) count += 1
+      if (board[row + 1][col]) count += 1
       if (board[row][col + 1]) count += 1
       if (board[row + 1][col - 1]) count += 1
-      if (board[row + 1][col]) count += 1
-      if (board[row + 1][col + 1]) count += 1
+      if (board[row][col - 1]) count += 1
     } else if (row === board.length - 1) { // bottom
       if (board[row - 1][col - 1]) count += 1
       if (board[row - 1][col]) count += 1
-      if (board[row - 1][col + 1]) count += 1
       if (board[row][col - 1]) count += 1
+      if (board[row - 1][col + 1]) count += 1
       if (board[row][col + 1]) count += 1
     } else if (col === 0) { // left
-      if (board[row - 1][col]) count += 1
-      if (board[row + 1][col]) count += 1
-      if (board[row - 1][col + 1]) count += 1
-      if (board[row][col + 1]) count += 1
       if (board[row + 1][col + 1]) count += 1
+      if (board[row + 1][col]) count += 1
+      if (board[row][col + 1]) count += 1
+      if (board[row - 1][col + 1]) count += 1
+      if (board[row - 1][col]) count += 1
     } else if (col === board.length - 1) { // right
       if (board[row - 1][col - 1]) count += 1
+      if (board[row - 1][col]) count += 1
       if (board[row][col - 1]) count += 1
       if (board[row + 1][col - 1]) count += 1
-      if (board[row - 1][col]) count += 1
       if (board[row + 1][col]) count += 1
     } else { // somewhere inside the board
       if (board[row - 1][col - 1]) count += 1
       if (board[row - 1][col]) count += 1
-      if (board[row - 1][col + 1]) count += 1
       if (board[row][col - 1]) count += 1
+      if (board[row - 1][col + 1]) count += 1
       if (board[row][col + 1]) count += 1
       if (board[row + 1][col - 1]) count += 1
       if (board[row + 1][col]) count += 1

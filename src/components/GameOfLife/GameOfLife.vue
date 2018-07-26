@@ -56,7 +56,7 @@ export default {
 
   data () {
     return {
-      gameOfLife: new GameOfLife(this.gameSize),
+      gameOfLife: null,
       timeout: null,
       count: 0,
       speed: 500,
@@ -82,7 +82,7 @@ export default {
       ctx.fillStyle = '#FFFFFF'
       ctx.fillRect(0, 0, this.canvasSize, this.canvasSize)
 
-      let squareSize = this.canvasSize / this.gameOfLife.board.length
+      const squareSize = this.canvasSize / this.gameOfLife.board.length
 
       ctx.fillStyle = '#000000'
       for (let i = 0; i < this.gameOfLife.board.length; i++) {
