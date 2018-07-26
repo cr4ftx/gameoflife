@@ -1,4 +1,5 @@
-import { GameOfLife } from '@/components/GameOfLife/GameOfLife'
+import 'babel-polyfill'
+import { GameOfLife } from '@/components/GameOfLife/GameOfLife.js'
 
 describe('GameOfLife.js', () => {
   it('should init a board of 4 rows of 4 cols', () => {
