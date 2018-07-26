@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <v-app>
-        coucou
       <v-container>
         <game-of-life
           id="1"
