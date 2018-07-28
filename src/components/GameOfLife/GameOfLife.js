@@ -10,7 +10,7 @@ export class GameOfLife {
   }
 
   generation () {
-    let copy = JSON.parse(JSON.stringify(this.board))
+    const copy = JSON.parse(JSON.stringify(this.board))
 
     for (let i = 0; i < this.board.length; i++) {
       for (let j = 0; j < this.board[i].length; j++) {
