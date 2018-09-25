@@ -1,6 +1,8 @@
 # gameoflife
 
-> A Vue.js project
+> A Vue.js project of conway's game of life
+
+[![Build Status](https://travis-ci.org/swanncastel/gameoflife.svg?branch=master)](https://travis-ci.org/swanncastel/gameoflife)
 
 ## Build Setup
 
