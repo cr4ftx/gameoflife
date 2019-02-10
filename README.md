@@ -2,9 +2,7 @@
 
 > A Vue.js project of conway's game of life
 
-[![Build Status](https://travis-ci.org/swanncastel/gameoflife.svg?branch=master)](https://travis-ci.org/swanncastel/gameoflife)
-
-[![codecov](https://codecov.io/gh/swanncastel/gameoflife/branch/master/graph/badge.svg)](https://codecov.io/gh/swanncastel/gameoflife)
+[![Build Status](https://travis-ci.org/swanncastel/gameoflife.svg?branch=master)](https://travis-ci.org/swanncastel/gameoflife) [![codecov](https://codecov.io/gh/swanncastel/gameoflife/branch/master/graph/badge.svg)](https://codecov.io/gh/swanncastel/gameoflife)
 
 ## Build Setup
 
